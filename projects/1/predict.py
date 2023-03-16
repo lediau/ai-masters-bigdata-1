@@ -35,4 +35,4 @@ read_opts = dict(sep="\t", names=[fields[0]] + fields[2:], index_col=False, head
 for df in pd.read_csv(sys.stdin, **read_opts):
     pred = model.predict_proba(df.iloc[:, 1:])
     out = zip(df.id, pred)
-    print("\n".join(["{0},{1}".format(*i) for i in out]))
+    print("\n".join(["{0}\t{1}".format(*i) for i in out]))

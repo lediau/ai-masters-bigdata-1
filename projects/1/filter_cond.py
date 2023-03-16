@@ -6,7 +6,7 @@ def filter_cond(line_dict):
     Returns True if conditions are satisfied
     """
     if line_dict["if1"] == '':
-        cond_match = False
+        cond_match = True
     else:
         cond_match = (
         20 < int(line_dict["if1"]) < 40

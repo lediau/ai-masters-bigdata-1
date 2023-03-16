@@ -36,6 +36,13 @@ df_true = pd.read_csv(true_path, sep='\t', header=None, index_col=0, names=["id"
 #open pred_path
 df_pred = pd.read_csv(pred_path, sep='\t', header=None, index_col=0, names=["id", "pred"])
 
+logging.info(df_pred.head())
+logging.info(df_pred.columns)
+
+df_pred_id = df_pred['id']
+
+df_true = df_true.loc[df_pred_id, :]
+
 len_true = len(df_true)
 len_pred = len(df_pred)
 
