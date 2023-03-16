@@ -30,7 +30,6 @@ model = load("1.joblib")
 
 read_opts = dict(sep="\t", names=[fields[0]] + fields[2:], index_col=False, header=None,
         iterator=True, chunksize=100)
-df = pd.read_table(train_path, **read_table_opts)
 
 
 for df in pd.read_csv(sys.stdin, **read_opts):
