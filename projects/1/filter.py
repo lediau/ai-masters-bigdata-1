@@ -42,7 +42,7 @@ exec(open(filter_cond_files[0]).read())
 
 if len(sys.argv) == 1:
   #by default print all fields
-  outfields = fields
+  outfields = [fields[0]] + fields[2:]
 else:
   op, field = sys.argv[1][0], sys.argv[1][1:]
   logging.info(f"OP {op}")
@@ -62,14 +62,23 @@ else:
 for line in sys.stdin:
     # skip header
     if line.startswith(fields[0]):
-        continue
+        continue 
+    
+    # logging.info(f"FIELDS {fields}")
 
     #unpack into a tuple/dict
     values = line.rstrip().split("\t")
-    hotel_record = dict(zip(fields, values)) # Hotel(values)
-
+    if len(values) != 14:
+      to_append = 14 - len(values)
+      values += [''] * to_append
+    # logging.info(f"values len")
+    hotel_record = dict(zip([fields[0]] + fields[2:], values)) # Hotel(values)
+    # logging.info(f"hotel_record {hotel_record}")
+    # logging.info(f"outfields {outfields}")
+    
     #apply filter conditions
     if filter_cond(hotel_record):
+        
         output = "\t".join([hotel_record[x] for x in outfields])
         print(output)
 
